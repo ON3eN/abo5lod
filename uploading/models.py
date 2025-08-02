@@ -9,10 +9,14 @@ UPLOAD_STATUS_CHOICES = (
 )
 
 class UploadStatus(models.Model):
-    video = models.OneToOneField(Video, on_delete=models.CASCADE)
-    uploader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, limit_choices_to={'profile__role': 'uploader'})
-    status = models.CharField(max_length=20, choices=UPLOAD_STATUS_CHOICES, default='not_started')
-    uploaded_at = models.DateTimeField(blank=True, null=True)
+    video = models.OneToOneField(Video, on_delete=models.CASCADE, verbose_name="الفيديو")
+    uploader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, limit_choices_to={'profile__role': 'uploader'}, verbose_name="مسؤول الرفع")
+    status = models.CharField("الحالة", max_length=20, choices=UPLOAD_STATUS_CHOICES, default='not_started')
+    uploaded_at = models.DateTimeField("تاريخ الرفع", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "حالة الرفع"
+        verbose_name_plural = "حالات الرفع"
 
     def __str__(self):
         return f"Upload status: {self.video} - {self.get_status_display()}"
