@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'channels',
 
-    # تطبيقات المشروع مع AppConfig لعرض الأسماء بالعربية في لوحة التحكم
+    # تطبيقات المشروع
     'core.apps.CoreConfig',
     'account.apps.AccountConfig',
     'videos.apps.VideosConfig',
@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 # وسطاء المعالجة
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # لخدمة static في الإنتاج
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,7 +74,7 @@ ROOT_URLCONF = 'abo_5lod.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # تعريف مجلد templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,7 +89,7 @@ TEMPLATES = [
 # إعداد WSGI
 WSGI_APPLICATION = 'abo_5lod.wsgi.application'
 
-# إعداد ASGI لـ WebSocket (قنوات المحادثة)
+# إعداد ASGI لـ WebSocket
 ASGI_APPLICATION = 'abo_5lod.asgi.application'
 
 # قاعدة البيانات
@@ -111,7 +111,7 @@ TIME_ZONE = 'Asia/Riyadh'
 USE_I18N = True
 USE_TZ = True
 
-# إعداد static والوسائط
+# الملفات الثابتة والوسائط
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
